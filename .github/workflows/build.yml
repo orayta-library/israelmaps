@@ -35,13 +35,13 @@ jobs:
       run: msbuild IsraelMapsApp.csproj /p:Configuration=${{ matrix.configuration }} /p:Platform=${{ matrix.platform }} /restore
 
     - name: Publish
-      run: msbuild IsraelMapsApp.csproj /t:Publish /p:Configuration=${{ matrix.configuration }} /p:Platform=${{ matrix.platform }} /p:PublishProfile=win-${{ matrix.platform }}.pubxml
+      run: msbuild IsraelMapsApp.csproj /t:Publish /p:Configuration=${{ matrix.configuration }} /p:Platform=${{ matrix.platform }}
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
         name: IsraelMapsApp-${{ matrix.platform }}-${{ matrix.configuration }}
-        path: bin/${{ matrix.configuration }}/net8.0-windows10.0.22621.0/win-${{ matrix.platform }}/publish/
+        path: bin/${{ matrix.platform }}/${{ matrix.configuration }}/net8.0-windows10.0.22621.0/publish/
         retention-days: 30
 
   create-release:
