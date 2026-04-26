@@ -1,0 +1,54 @@
+<Window
+    x:Class="IsraelMapsApp.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="מפות ישראל">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Title Bar with Fluent Design -->
+        <Grid Grid.Row="0" Background="{ThemeResource LayerFillColorDefaultBrush}">
+            <StackPanel Orientation="Horizontal" Margin="16,0" VerticalAlignment="Center">
+                <TextBlock Text="🗺️ מפות ישראל" 
+                          FontSize="16" 
+                          FontWeight="SemiBold"
+                          VerticalAlignment="Center"
+                          Margin="0,0,16,0"/>
+                
+                <AutoSuggestBox x:Name="SearchBox"
+                               PlaceholderText="חיפוש כתובת..."
+                               Width="300"
+                               QueryIcon="Find"
+                               QuerySubmitted="SearchBox_QuerySubmitted"
+                               Margin="0,0,8,0"/>
+                
+                <ToggleButton x:Name="OfflineToggle"
+                             Content="מצב אופליין"
+                             Click="OfflineToggle_Click"
+                             Margin="8,0"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Map Container -->
+        <Border Grid.Row="1" Background="{ThemeResource LayerFillColorDefaultBrush}">
+            <WebView2 x:Name="MapWebView"
+                     Source="ms-appx-web:///Assets/map.html"/>
+        </Border>
+
+        <!-- Loading Indicator -->
+        <ProgressRing x:Name="LoadingRing"
+                     Grid.Row="1"
+                     IsActive="False"
+                     Width="60"
+                     Height="60"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"/>
+    </Grid>
+</Window>
