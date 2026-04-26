@@ -20,6 +20,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
@@ -29,10 +32,10 @@ jobs:
       run: dotnet restore
 
     - name: Build
-      run: dotnet build --configuration ${{ matrix.configuration }} --no-restore /p:Platform=${{ matrix.platform }}
+      run: msbuild IsraelMapsApp.csproj /p:Configuration=${{ matrix.configuration }} /p:Platform=${{ matrix.platform }} /restore
 
     - name: Publish
-      run: dotnet publish --configuration ${{ matrix.configuration }} --no-build -p:Platform=${{ matrix.platform }} -p:PublishProfile=win-${{ matrix.platform }}.pubxml
+      run: msbuild IsraelMapsApp.csproj /t:Publish /p:Configuration=${{ matrix.configuration }} /p:Platform=${{ matrix.platform }} /p:PublishProfile=win-${{ matrix.platform }}.pubxml
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
